@@ -12,6 +12,6 @@ export class VolvoHomePage {
     }
 
     async verifyTitle() {
-        await expect(this.page).toHaveTitle(/volvo/);
+        await expect(this.page).toHaveTitle(/Volvo Group/);
     }
 }

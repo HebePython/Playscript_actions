@@ -5,4 +5,4 @@ test('has title', async ({ page }) => {
     const volvoHome = new VolvoHomePage(page);
     await volvoHome.goto();
     await volvoHome.verifyTitle();
-})
+});
