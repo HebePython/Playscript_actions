@@ -14,4 +14,12 @@ export class VolvoHomePage {
     async verifyTitle() {
         await expect(this.page).toHaveTitle(/Volvo Group/);
     }
+
+    async clickSearchIcon() {
+        await this.page.locator('.header__searchIcon--icon').click();
+    }
+
+    async typeIntoSearchBar(searchText: string) {
+        await this.page.locator('.cmp-search__input').fill(searchText);
+    }
 }

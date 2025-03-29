@@ -6,3 +6,9 @@ test('has title', async ({ page }) => {
     await volvoHome.goto();
     await volvoHome.verifyTitle();
 });
+
+test('You can type into search bar', async ({ page}) => {
+    const volvoHome = new VolvoHomePage(page);
+    await volvoHome.goto();
+    await volvoHome.
+})
