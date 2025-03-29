@@ -2,9 +2,11 @@ import { Page, Locator, expect } from '@playwright/test'
 
 export class VolvoHomePage {
     readonly page: Page;
+    readonly searchInput: Locator;
 
     constructor(page: Page) {
         this.page = page;
+        this.searchInput = this.page.locator('.cmp-search__input');
     }
 
     async goto() {
@@ -21,5 +23,13 @@ export class VolvoHomePage {
 
     async typeIntoSearchBar(searchText: string) {
         await this.page.locator('.cmp-search__input').fill(searchText);
+    }
+
+    async pressEnterInSearchBar() {
+        await this.searchInput.press('Enter');
+    }
+
+    async verifySearchBarText(expectedText: string) {
+        await expect(this.searchInput).toHaveValue(expectedText);
     }
 }
