@@ -4,11 +4,13 @@ export class VolvoHomePage {
     readonly page: Page;
     readonly searchInput: Locator;
     readonly navbarItems: Locator;
+    readonly imageExploreLinks: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.searchInput = this.page.locator('.cmp-search__input');
         this.navbarItems = this.page.locator('.cmp-navigation__item-link');
+        this.imageExploreLinks = this.page.locator('.img__asset.cmp-image__image.img__asset__image');
     }
 
     async goto() {
@@ -52,8 +54,15 @@ export class VolvoHomePage {
 
     async verifyNavbarItemNavigatesToUrl(linkText: string, expectedPath: string) {
         await this.clickNavbarItem(linkText);
-        await this.verifyNavbarUrl(expectedPath);
+        await this.verifyUrl(expectedPath);
     }
 
- 
+    async clickExploreItem(altText: string) {
+        await this.page.locator(`.img__asset.cmp-image__image.img__asset__image[alt="${altText}"]`).click();
+    }
+    
+    async verifyExploreItemLinks(linkText: string, expectedExplorePath: string) {
+        await this.clickExploreItem(linkText);
+        await this.verifyUrl(expectedExplorePath);
+    }
 }

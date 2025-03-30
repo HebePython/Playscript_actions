@@ -7,3 +7,9 @@ export const navbarItems = [
     { text: 'About us', expectedPath: '/en/about-us.html' }
 ];
 
+
+export const imageExploreLinks = [
+    { text: 'Products & Services', expectedExplorePath: 'en/about-us/Products_and_services.html' },
+    { text: 'Our brands', expectedExplorePath: 'en/about-us/brands.html' },
+    { text: 'Financial reports 2023', expectedExplorePath: 'en/investors/reports-and-presentations.html' }
+];

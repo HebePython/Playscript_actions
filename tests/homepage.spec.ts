@@ -1,6 +1,7 @@
 import { test as base } from '@playwright/test'
 import { VolvoHomePage } from '../resources/page_objects'
 import { navbarItems } from '../resources/util/home_page_testdata';
+import { imageExploreLinks } from '../resources/util/home_page_testdata';
 
 type TestFixtures = {
     volvoHome: VolvoHomePage;
@@ -33,6 +34,11 @@ for (const item of navbarItems) { // parameterized test.
     await volvoHome.goto();
     await volvoHome.verifyNavbarItemNavigatesToUrl(item.text, item.expectedPath);
   });
+}
 
-
+for (const item of imageExploreLinks) {
+    test(`Explore Item Link item "${item.text}" navigates to correct URL`, async ({ volvoHome }) => {
+        await volvoHome.goto();
+        await volvoHome.verifyExploreItemLinks(item.text, item.expectedExplorePath);
+    });
 }
