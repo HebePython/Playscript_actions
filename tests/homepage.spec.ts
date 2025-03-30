@@ -1,5 +1,6 @@
 import { test as base } from '@playwright/test'
 import { VolvoHomePage } from '../resources/page_objects'
+import { navbarItems } from '../resources/util/home_page_testdata';
 
 type TestFixtures = {
     volvoHome: VolvoHomePage;
@@ -26,4 +27,9 @@ test('You can type into search bar and hit enter to search', async ({ volvoHome 
     await volvoHome.pressEnterInSearchBar();
 });
 
-
+for (const item of navbarItems) {
+  test(`Navbar item "${item.text}" navigates to correct URL`, async ({ volvoHome }) => {
+    await volvoHome.goto();
+    await volvoHome.verifyNavbarItemNavigatesToUrl(item.text, item.expectedPath);
+  });
+}
