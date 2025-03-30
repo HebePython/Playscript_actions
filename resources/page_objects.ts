@@ -35,6 +35,10 @@ export class VolvoHomePage {
         await expect(this.searchInput).toHaveValue(expectedText);
     }
 
+    async verifyUrl(expectedPath: string) {
+        await expect(this.page).toHaveURL(new RegExp(expectedPath));
+    }
+
     async clickNavbarItem(linkText: string) {
         // Use the correct class and the exact text matching
         await this.page.locator('.cmp-navigation__item-link', { hasText: linkText }).click();

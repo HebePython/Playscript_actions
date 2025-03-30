@@ -25,11 +25,14 @@ test('You can type into search bar and hit enter to search', async ({ volvoHome 
     await volvoHome.typeIntoSearchBar("jobs");
     await volvoHome.verifySearchBarText("jobs");
     await volvoHome.pressEnterInSearchBar();
+    await volvoHome.verifyUrl("jobs");
 });
 
-for (const item of navbarItems) {
+for (const item of navbarItems) { // parameterized test.
   test(`Navbar item "${item.text}" navigates to correct URL`, async ({ volvoHome }) => {
     await volvoHome.goto();
     await volvoHome.verifyNavbarItemNavigatesToUrl(item.text, item.expectedPath);
   });
+
+
 }
