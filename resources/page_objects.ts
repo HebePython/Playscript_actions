@@ -61,8 +61,26 @@ export class VolvoHomePage {
         await this.page.locator(`.img__asset.cmp-image__image.img__asset__image[alt="${altText}"]`).click();
     }
     
-    async verifyExploreItemLinks(linkText: string, expectedExplorePath: string) {
-        await this.clickExploreItem(linkText);
+    async verifyExploreItemLinks(altText: string, expectedExplorePath: string) {
+        await this.clickExploreItem(altText);
         await this.verifyUrl(expectedExplorePath);
     }
+
+    async verifyJobsItemLink(altText: string, expectedJobsPath: string) {
+        // promise will resolve when new page is opened
+        const pagePromise = this.page.context().waitForEvent('page');
+        // click element, opens new tab
+        await this.clickExploreItem(altText);
+        // wait for new page to open and get a reference to it
+        const newPage = await pagePromise;
+        // wait for loading
+        await newPage.waitForLoadState();
+        // check URL on new page with expected path
+        await expect(newPage).toHaveURL(new RegExp(expectedJobsPath));
+        // close new tab page
+        await newPage.close();
+
+    }
+
+    
 }

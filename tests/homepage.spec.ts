@@ -29,7 +29,7 @@ test('You can type into search bar and hit enter to search', async ({ volvoHome 
     await volvoHome.verifyUrl("jobs");
 });
 
-for (const item of navbarItems) { // parameterized test.
+for (const item of navbarItems) { // parameterized tests.
   test(`Navbar item "${item.text}" navigates to correct URL`, async ({ volvoHome }) => {
     await volvoHome.goto();
     await volvoHome.verifyNavbarItemNavigatesToUrl(item.text, item.expectedPath);
@@ -42,3 +42,8 @@ for (const item of imageExploreLinks) {
         await volvoHome.verifyExploreItemLinks(item.text, item.expectedExplorePath);
     });
 }
+
+test('When jobs image link is clicked, it opens a new tab for job opening', async ({ volvoHome }) => {
+    await volvoHome.goto();
+    await volvoHome.verifyJobsItemLink('Job openings', 'jobs.volvogroup.com');
+    });

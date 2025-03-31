@@ -4,3 +4,4 @@ run with UI mode: npx playwright test --ui
 
 view test reports: npx playwright show-report
 
+Playwright documentation: https://playwright.dev/docs/test-configuration
