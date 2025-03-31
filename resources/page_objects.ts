@@ -10,7 +10,6 @@ export class VolvoHomePage {
         this.page = page;
         this.searchInput = this.page.locator('.cmp-search__input');
         this.navbarItems = this.page.locator('.cmp-navigation__item-link');
-        this.imageExploreLinks = this.page.locator('.img__asset.cmp-image__image.img__asset__image');
     }
 
     async goto() {
@@ -26,7 +25,7 @@ export class VolvoHomePage {
     }
 
     async typeIntoSearchBar(searchText: string) {
-        await this.page.locator('.cmp-search__input').fill(searchText);
+        await this.searchInput.fill(searchText);
     }
 
     async pressEnterInSearchBar() {
@@ -43,8 +42,8 @@ export class VolvoHomePage {
 
     async clickNavbarItem(linkText: string) {
         // Use the correct class and the exact text matching
-        await this.page.locator('.cmp-navigation__item-link', { hasText: linkText }).click();
-        
+      //  await this.page.locator('.cmp-navigation__item-link', { hasText: linkText }).click(); 
+        await this.navbarItems.filter({ hasText: linkText }).click();
     }
 
     async verifyNavbarItemNavigatesToUrl(linkText: string, expectedPath: string) {
@@ -53,7 +52,9 @@ export class VolvoHomePage {
     }
 
     async clickExploreItem(altText: string) {
-        await this.page.locator(`.img__asset.cmp-image__image.img__asset__image[alt="${altText}"]`).click();
+    // original:  await this.page.locator(`.img__asset.cmp-image__image.img__asset__image[alt="${altText}"]`).click();
+    // Option 1: Find the parent link wrapping the image (most likely solution)    
+        await this.page.locator(`a:has(img[alt="${altText}"])`).click();
     }
     
     async verifyExploreItemLinks(altText: string, expectedExplorePath: string) {
