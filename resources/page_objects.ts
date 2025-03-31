@@ -47,11 +47,6 @@ export class VolvoHomePage {
         
     }
 
-    async verifyNavbarUrl(expectedPath: string) {
-        // Make sure we're checking for the complete path
-        await expect(this.page).toHaveURL(new RegExp(expectedPath));
-    }
-
     async verifyNavbarItemNavigatesToUrl(linkText: string, expectedPath: string) {
         await this.clickNavbarItem(linkText);
         await this.verifyUrl(expectedPath);
