@@ -1,7 +1,13 @@
+# Test results
+results/
+playwright-report/
+test-results/
 
-# Playwright
-node_modules/
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
+# Authentication state
+storage-state.json
+
+# Test artifacts
+**/test-artifacts/
+**/screenshots/
+**/videos/
+**/traces/
