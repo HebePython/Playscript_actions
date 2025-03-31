@@ -1,0 +1,59 @@
+{
+  "cookies": [
+    {
+      "name": "affinity",
+      "value": "\"d0f95ea0c963ddd8\"",
+      "domain": "www.volvogroup.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "AKA_A2",
+      "value": "A",
+      "domain": ".volvogroup.com",
+      "path": "/",
+      "expires": 1743347497.224052,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "OptanonAlertBoxClosed",
+      "value": "2025-03-30T14:11:40.711Z",
+      "domain": ".volvogroup.com",
+      "path": "/",
+      "expires": 1774879900,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "OptanonConsent",
+      "value": "isGpcEnabled=0&datestamp=Sun+Mar+30+2025+16%3A11%3A40+GMT%2B0200+(Central+European+Summer+Time)&version=202311.1.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=acc20bf3-a0d9-4863-ac14-75a81e9b2db1&interactionCount=1&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A0%2CC0003%3A0%2CC0004%3A0",
+      "domain": ".volvogroup.com",
+      "path": "/",
+      "expires": 1774879900,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://www.volvogroup.com",
+      "localStorage": [
+        {
+          "name": "lastExternalReferrer",
+          "value": "empty"
+        },
+        {
+          "name": "lastExternalReferrerTime",
+          "value": "1743343898002"
+        }
+      ]
+    }
+  ]
+}
