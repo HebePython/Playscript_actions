@@ -1,5 +1,5 @@
 import { test as base } from '@playwright/test'
-import { VolvoHomePage } from '../resources/page_objects'
+import { VolvoHomePage } from '../resources/page_obj_models/home_page_object'
 import { navbarItems } from '../resources/util/home_page_testdata';
 import { imageExploreLinks } from '../resources/util/home_page_testdata';
 
