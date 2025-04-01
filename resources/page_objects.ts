@@ -4,11 +4,11 @@ export class VolvoHomePage {
     readonly page: Page;
     readonly searchInput: Locator;
     readonly navbarItems: Locator;
-    readonly imageExploreLinks: Locator;
 
     constructor(page: Page) {
         this.page = page;
-        this.searchInput = this.page.locator('.cmp-search__input');
+      //  this.searchInput = this.page.locator('.cmp-search__input');
+        this.searchInput = this.page.getByRole('combobox');
         this.navbarItems = this.page.locator('.cmp-navigation__item-link');
     }
 
@@ -78,5 +78,32 @@ export class VolvoHomePage {
 
     }
 
+    async verifyVideoAutoplay() {
+        // Find the video element - adjust selector as needed for the actual site
+        const videoElement = this.page.locator('video').first();
+        
+        // Wait for the video element to be present
+        await videoElement.waitFor({ state: 'attached' });
+        
+        // Wait briefly to give video time to start playing (autoplay might have a small delay)
+        await this.page.waitForTimeout(2000);
+        
+        // Method 1: Check if video is playing by verifying it's not paused
+        const isPaused = await videoElement.evaluate(video => (video as HTMLVideoElement).paused);
+        expect(isPaused).toBeFalsy();
+        
+        // Method 2: Alternative approach - check if current time is advancing
+        const initialTime = await videoElement.evaluate(video => (video as HTMLVideoElement).currentTime);
+        await this.page.waitForTimeout(1000);  // Wait a second
+        const laterTime = await videoElement.evaluate(video => (video as HTMLVideoElement).currentTime);
+        
+        // Verify time has advanced, meaning video is playing
+        expect(laterTime).toBeGreaterThan(initialTime);
+        
+        // Optional: You could also verify if the video is muted
+        const isMuted = await videoElement.evaluate(video => (video as HTMLVideoElement).muted);
+        console.log(`Video is ${isMuted ? 'muted' : 'not muted'}`);
+
+    }
     
 }

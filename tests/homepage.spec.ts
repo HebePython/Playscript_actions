@@ -47,7 +47,9 @@ for (const item of imageExploreLinks) {
 test('When jobs image link is clicked, it opens a new tab for job opening', async ({ volvoHome }) => {
     await volvoHome.verifyJobsItemLink('Job openings', 'jobs.volvogroup.com');
     });
+test.describe('@new-feature', () => {
 
-test('When homepage is opened video should play automatically', async ({ volvoHome }) => {
-
-})
+ test('When homepage is opened video should play automatically', async ({ volvoHome }) => {
+    await volvoHome.verifyVideoAutoplay();
+    });
+});
