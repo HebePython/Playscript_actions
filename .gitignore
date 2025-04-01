@@ -6,7 +6,7 @@ node_modules/
 /playwright/.cache/
 
 # Custom results directory (from your config)
-/results/
+/results/*
 
 # Authentication state
 storage-state.json
