@@ -15,13 +15,16 @@ const test = base.extend<TestFixtures>({
     },
 });
 
-test('has title', async ({ volvoHome }) => {
+test.beforeEach(async ({ volvoHome }) => {
     await volvoHome.goto();
+})
+
+test('has title', async ({ volvoHome }) => {
+
     await volvoHome.verifyTitle();
 });
 
 test('You can type into search bar and hit enter to search', async ({ volvoHome }) => {
-    await volvoHome.goto();
     await volvoHome.clickSearchIcon();
     await volvoHome.typeIntoSearchBar("jobs");
     await volvoHome.verifySearchBarText("jobs");
@@ -31,19 +34,20 @@ test('You can type into search bar and hit enter to search', async ({ volvoHome 
 
 for (const item of navbarItems) { // parameterized tests.
   test(`Navbar item "${item.text}" navigates to correct URL`, async ({ volvoHome }) => {
-    await volvoHome.goto();
     await volvoHome.verifyNavbarItemNavigatesToUrl(item.text, item.expectedPath);
   });
 }
 
 for (const item of imageExploreLinks) {
     test(`Explore Item Link item "${item.text}" navigates to correct URL`, async ({ volvoHome }) => {
-        await volvoHome.goto();
         await volvoHome.verifyExploreItemLinks(item.text, item.expectedExplorePath);
     });
 }
 
 test('When jobs image link is clicked, it opens a new tab for job opening', async ({ volvoHome }) => {
-    await volvoHome.goto();
     await volvoHome.verifyJobsItemLink('Job openings', 'jobs.volvogroup.com');
     });
+
+test('When homepage is opened video should play automatically', async ({ volvoHome }) => {
+
+})
