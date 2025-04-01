@@ -1,5 +1,5 @@
 import { test as base } from '@playwright/test'
-import { VolvoHomePage } from '../../resources/page_obj_models/volvo/home_page_object'
+import { VolvoHomePage } from '../../resources/page_obj_models/Volvo/home_page_object'
 import { navbarItems, imageExploreLinks } from '../../resources/util/home_page_testdata';
 
 type TestFixtures = {
