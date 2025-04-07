@@ -14,7 +14,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   globalSetup: './global-setup.ts',
   testDir: './tests',
-  testMatch: '**/*.{spec,test,tests}.{ts,js}',
+  testMatch: '{volvo_tests,other_test_dir}/**/*.{spec,test,tests}.{ts,js}',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -35,7 +35,7 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     // Use the storage state in all tests
-    storageState: './storage-state.json',
+    storageState: './resources/storage-state/storage-state.json',
   },
 
   /* Configure projects for major browsers */

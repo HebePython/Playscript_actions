@@ -4,11 +4,11 @@ export class VolvoHomePage {
     readonly page: Page;
     readonly searchInput: Locator;
     readonly navbarItems: Locator;
-    readonly imageExploreLinks: Locator;
 
     constructor(page: Page) {
         this.page = page;
-        this.searchInput = this.page.locator('.cmp-search__input');
+      //  this.searchInput = this.page.locator('.cmp-search__input');
+        this.searchInput = this.page.getByRole('combobox');
         this.navbarItems = this.page.locator('.cmp-navigation__item-link');
     }
 
@@ -78,5 +78,20 @@ export class VolvoHomePage {
 
     }
 
+    async verifyVideoAutoplay() {
+        // Find the video element - adjust selector as needed for the actual site
+        const videoElement = this.page.locator('video').first();   
+        // Wait for the video element to be present
+        await videoElement.waitFor({ state: 'attached' });
+        // Check for autoplay attribute
+        const hasAutoplay = await videoElement.evaluate(video => 
+            video.hasAttribute('autoplay'));
+        expect(hasAutoplay).toBeTruthy();
+    }
     
+    async verifyLearnMoreButton(expectedPath: string) {
+        const LearnMoreBtn = this.page.getByRole('link', { name: 'Learn more' })
+        await LearnMoreBtn.click();
+        await this.verifyUrl(expectedPath);
+    }
 }

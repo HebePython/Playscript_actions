@@ -17,8 +17,20 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
+    
+    # Run tests based on branch context
+    - name: Run tests tagged with new-feature (feature branches)
+      if: startsWith(github.ref, 'refs/heads/feature_')
+      run: npx playwright test --grep "@new-feature"
+    
+    - name: Run specific test files (PRs to Development)
+      if: github.event_name == 'pull_request' && github.base_ref == 'Development'
+      run: npx playwright test tests/homepage.spec.ts tests/other-critical-tests.spec.ts
+    
+    - name: Run all tests (PRs to main)
+      if: github.event_name == 'pull_request' && github.base_ref == 'main'
       run: npx playwright test
+    
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
