@@ -21,7 +21,11 @@ test('has title', async ({ autoBlog }) => {
     await autoBlog.verifyTitle();
 });
 
-test('test name box', async ({ autoBlog }) => {
+test.describe('@new-feature', () => { 
+    
+    test('test name box', async ({ autoBlog }) => {
     await autoBlog.fillNameTextBox("Henrik");
     await autoBlog.verifyTextBox("Henrik", "name");
+});
+
 });
