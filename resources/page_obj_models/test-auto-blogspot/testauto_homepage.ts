@@ -27,6 +27,10 @@ export class AutoBlogHomePage {
         await this.page.locator('#phone').fill(text);
     };
 
+    async fillAdressTextBox(text: string) {
+        await this.page.locator('#textarea').fill(text);
+    };
+
     async verifyTextBox(expectedText: string, boxID: string) {
         await expect(this.page.locator(`#${boxID}`)).toHaveValue(expectedText);
     };

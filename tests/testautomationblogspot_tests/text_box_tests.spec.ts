@@ -37,4 +37,9 @@ test.describe('@new-feature', () => {
         await autoBlog.fillPhoneTextBox("0763306922");
         await autoBlog.verifyTextBox("0763306922", "phone");
     })
-});
+
+    test('adress text area', async ({ autoBlog }) => {
+         await autoBlog.fillAdressTextBox("Lasse K Gatan 21B, Gothenburg, Sweden, 411 13");
+         await autoBlog.verifyTextBox("ASDLasse K Gatan 21B, Gothenburg, Sweden, 411 13", "textarea");
+    })
+}); 

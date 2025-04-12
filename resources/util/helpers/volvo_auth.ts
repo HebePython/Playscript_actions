@@ -24,7 +24,7 @@ export async function setupVolvoAuth(): Promise<string> {
   const page = await context.newPage();
 
   try {
-    // Go to site with extended timeout
+    // Go to site with extended timeout 
     await page.goto('https://volvogroup.com', { 
       timeout: 60000,
       waitUntil: 'domcontentloaded'
