@@ -22,10 +22,19 @@ test('has title', async ({ autoBlog }) => {
 });
 
 test.describe('@new-feature', () => { 
-    
-    test('test name box', async ({ autoBlog }) => {
-    await autoBlog.fillNameTextBox("Henrik");
-    await autoBlog.verifyTextBox("Henrik", "name");
-});
 
+    test('test name box', async ({ autoBlog }) => {
+        await autoBlog.fillNameTextBox("Henrik");
+        await autoBlog.verifyTextBox("Henrik", "name");
+    });
+
+    test('email box', async ({ autoBlog }) => {
+        await autoBlog.fillEmailTextBox("henrik.b@gmail.com");
+        await autoBlog.verifyTextBox("henrik.b@gmail.com", "email");
+    });
+
+    test('phone text box', async ({ autoBlog }) => {
+        await autoBlog.fillPhoneTextBox("0763306922");
+        await autoBlog.verifyTextBox("0763306922", "phone");
+    })
 });
