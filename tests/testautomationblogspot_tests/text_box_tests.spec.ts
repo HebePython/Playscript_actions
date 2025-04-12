@@ -40,6 +40,6 @@ test.describe('@new-feature', () => {
 
     test('adress text area', async ({ autoBlog }) => {
          await autoBlog.fillAdressTextBox("Lasse K Gatan 21B, Gothenburg, Sweden, 411 13");
-         await autoBlog.verifyTextBox("ASDLasse K Gatan 21B, Gothenburg, Sweden, 411 13", "textarea");
+         await autoBlog.verifyTextBox("Lasse K Gatan 21B, Gothenburg, Sweden, 411 13", "textarea");
     })
 }); 
