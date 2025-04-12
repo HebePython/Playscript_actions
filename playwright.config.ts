@@ -1,4 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
+import * as fs from 'fs';
+import * as path from 'path';
 
 /**
  * Read environment variables from file.
@@ -7,6 +9,18 @@ import { defineConfig, devices } from '@playwright/test';
 // import dotenv from 'dotenv';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
+
+// Check if storage state file exists, create empty one if not
+const storageStatePath = './resources/storage-state/storage-state.json';
+const storageStateDir = path.dirname(storageStatePath);
+
+if (!fs.existsSync(storageStateDir)) {
+  fs.mkdirSync(storageStateDir, { recursive: true });
+}
+
+if (!fs.existsSync(storageStatePath)) {
+  fs.writeFileSync(storageStatePath, JSON.stringify({ cookies: [], origins: [] }));
+}
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -47,7 +61,7 @@ export default defineConfig({
       name: 'volvo',
       testMatch: '**/volvo_tests/**/*.spec.ts',
       use: {
-        storageState: './resources/storage-state/storage-state.json',
+        storageState: storageStatePath,
         ...devices['Desktop Chrome'],
       },
     },
@@ -85,9 +99,9 @@ export default defineConfig({
     //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
     // },
     // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+      //   name: 'Google Chrome',
+      //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+      // },
   ],
 
   /* Run your local dev server before starting the tests */
