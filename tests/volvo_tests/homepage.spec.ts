@@ -1,6 +1,7 @@
 import { test as base } from '@playwright/test'
 import { VolvoHomePage } from '../../resources/page_obj_models/Volvo/home_page_object'
-import { navbarItems, imageExploreLinks } from '../../resources/util/home_page_testdata';
+import { navbarItems, imageExploreLinks } from '../../resources/util/volvo_testdata/home_page_testdata';
+import { setupVolvoAuth } from '../../resources/util/helpers/volvo_auth';
 
 type TestFixtures = {
     volvoHome: VolvoHomePage;
@@ -14,9 +15,13 @@ const test = base.extend<TestFixtures>({
     },
 });
 
+test.beforeAll(async () => {
+    await setupVolvoAuth();
+});
+
 test.beforeEach(async ({ volvoHome }) => {
     await volvoHome.goto();
-})
+});
 
 test.describe('@smoke-tests', () => {
     

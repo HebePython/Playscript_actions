@@ -1,0 +1,45 @@
+import { test as base } from '@playwright/test'
+import { AutoBlogHomePage } from '../../resources/page_obj_models/test-auto-blogspot/testauto_homepage'
+
+type TestFixtures = {
+    autoBlog: AutoBlogHomePage;
+};
+
+const test = base.extend<TestFixtures> ({
+    autoBlog: async ({ page }, use) => {
+        const autoBlog = new AutoBlogHomePage(page);
+
+        await use(autoBlog);
+    },
+});
+
+test.beforeEach(async ({ autoBlog }) => {
+    await autoBlog.goto();
+});
+
+test('has title', async ({ autoBlog }) => {
+    await autoBlog.verifyTitle();
+});
+
+test.describe('@new-feature', () => { 
+
+    test('test name box', async ({ autoBlog }) => {
+        await autoBlog.fillNameTextBox("Henrik");
+        await autoBlog.verifyTextBox("Henrik", "name");
+    });
+
+    test('email box', async ({ autoBlog }) => {
+        await autoBlog.fillEmailTextBox("henrik.b@gmail.com");
+        await autoBlog.verifyTextBox("henrik.b@gmail.com", "email");
+    });
+
+    test('phone text box', async ({ autoBlog }) => {
+        await autoBlog.fillPhoneTextBox("0763306922");
+        await autoBlog.verifyTextBox("0763306922", "phone");
+    })
+
+    test('adress text area', async ({ autoBlog }) => {
+         await autoBlog.fillAdressTextBox("Lasse K Gatan 21B, Gothenburg, Sweden, 411 13");
+         await autoBlog.verifyTextBox("Lasse K Gatan 21B, Gothenburg, Sweden, 411 13", "textarea");
+    })
+}); 

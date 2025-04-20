@@ -7,13 +7,21 @@ export class VolvoHomePage {
 
     constructor(page: Page) {
         this.page = page;
-      //  this.searchInput = this.page.locator('.cmp-search__input');
         this.searchInput = this.page.getByRole('combobox');
         this.navbarItems = this.page.locator('.cmp-navigation__item-link');
     }
 
     async goto() {
-        await this.page.goto('https://volvogroup.com');
+        try {
+            await this.page.goto('https://volvogroup.com/', {
+                timeout: 45000,  // Increase timeout for this specific navigation
+                waitUntil: 'domcontentloaded'  // Less strict than 'networkidle'
+            });
+        } catch (error) {
+            console.error('Navigation to Volvo page failed:', error);
+            // Re-throw to make the test fail properly
+            throw error;
+        }
     }
 
     async verifyTitle() {
@@ -41,8 +49,6 @@ export class VolvoHomePage {
     }
 
     async clickNavbarItem(linkText: string) {
-        // Use the correct class and the exact text matching
-      //  await this.page.locator('.cmp-navigation__item-link', { hasText: linkText }).click(); 
         await this.navbarItems.filter({ hasText: linkText }).click();
     }
 
@@ -52,8 +58,6 @@ export class VolvoHomePage {
     }
 
     async clickExploreItem(altText: string) {
-    // original:  await this.page.locator(`.img__asset.cmp-image__image.img__asset__image[alt="${altText}"]`).click();
-    // Option 1: Find the parent link wrapping the image (most likely solution)    
         await this.page.locator(`a:has(img[alt="${altText}"])`).click();
     }
     
@@ -63,27 +67,17 @@ export class VolvoHomePage {
     }
 
     async verifyJobsItemLink(altText: string, expectedJobsPath: string) {
-        // promise will resolve when new page is opened
         const pagePromise = this.page.context().waitForEvent('page');
-        // click element, opens new tab
         await this.clickExploreItem(altText);
-        // wait for new page to open and get a reference to it
         const newPage = await pagePromise;
-        // wait for loading
         await newPage.waitForLoadState();
-        // check URL on new page with expected path
         await expect(newPage).toHaveURL(new RegExp(expectedJobsPath));
-        // close new tab page
         await newPage.close();
-
     }
 
     async verifyVideoAutoplay() {
-        // Find the video element - adjust selector as needed for the actual site
         const videoElement = this.page.locator('video').first();   
-        // Wait for the video element to be present
         await videoElement.waitFor({ state: 'attached' });
-        // Check for autoplay attribute
         const hasAutoplay = await videoElement.evaluate(video => 
             video.hasAttribute('autoplay'));
         expect(hasAutoplay).toBeTruthy();

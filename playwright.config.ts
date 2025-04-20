@@ -1,4 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
+import * as fs from 'fs';
+import * as path from 'path';
 
 /**
  * Read environment variables from file.
@@ -8,13 +10,30 @@ import { defineConfig, devices } from '@playwright/test';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
 
+// Check if storage state file exists, create empty one if not
+const storageStatePath = './resources/storage-state/storage-state.json';
+const storageStateDir = path.dirname(storageStatePath);
+
+if (!fs.existsSync(storageStateDir)) {
+  fs.mkdirSync(storageStateDir, { recursive: true });
+}
+
+if (!fs.existsSync(storageStatePath)) {
+  fs.writeFileSync(storageStatePath, JSON.stringify({ cookies: [], origins: [] }));
+}
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  globalSetup: './global-setup.ts',
   testDir: './tests',
-  testMatch: '{volvo_tests,other_test_dir}/**/*.{spec,test,tests}.{ts,js}',
+  
+  // Added timeouts to address earlier issues
+  timeout: 60000,        // Test timeout: 60 seconds
+  expect: {
+    timeout: 15000       // Assertion timeout: 15 seconds
+  },
+  
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -34,15 +53,24 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    // Use the storage state in all tests
-    storageState: './resources/storage-state/storage-state.json',
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'volvo',
+      testMatch: '**/volvo_tests/**/*.spec.ts',
+      use: {
+        storageState: storageStatePath,
+        ...devices['Desktop Chrome'],
+      },
+    },
+    {
+      name: 'test-automation-blog',
+      testMatch: '**/testautomationblogspot_tests/**/*.spec.ts',
+      use: {
+        ...devices['Desktop Chrome'], // Add browser config here
+      },
     },
     /*
     {
@@ -71,9 +99,9 @@ export default defineConfig({
     //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
     // },
     // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+      //   name: 'Google Chrome',
+      //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+      // },
   ],
 
   /* Run your local dev server before starting the tests */
