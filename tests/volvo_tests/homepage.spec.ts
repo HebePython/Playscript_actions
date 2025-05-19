@@ -23,10 +23,6 @@ test.beforeEach(async ({ volvoHome }) => {
     await volvoHome.goto();
 });
 
-test.afterAll(async ({ volvoHome }) => {
-    await volvoHome.page.close();
-});
-
 test.describe('@smoke-tests', () => {
     
     test('has title', async ({ volvoHome }) => {
