@@ -1,4 +1,4 @@
-import { test } from '../../resources/util/base/orange_base'
+import { test, expect } from '../../resources/util/base/orange_base'
 
 const { EMAIL, PW } = process.env
 
@@ -10,4 +10,4 @@ test("Log into orange HRM", async ({
     await loginPage.login("Admin", "admin123"); // put these in .env later.
 
     await dashboardPage.isReady();
-})
+});

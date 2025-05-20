@@ -72,6 +72,13 @@ export default defineConfig({
         ...devices['Desktop Chrome'], // Add browser config here
       },
     },
+    {
+      name: 'orange-hrm-page',
+      testMatch: '**/orangeHRM_tests/**/*.spec.ts',
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+    },
     /*
     {
       name: 'firefox',
