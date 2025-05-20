@@ -24,6 +24,7 @@
     "@types/node": "^22.13.14"
   },
   "dependencies": {
+    "dotenv": "^16.5.0",
     "playscript_actions": "file:"
   }
 }
