@@ -10,14 +10,14 @@ export async function setupVolvoAuth(): Promise<string> {
   console.log('Setting up Volvo authentication');
   
   // Create the directory if it doesn't exist
-  const storeStatePath = path.join('resources', 'storage-state');
+  const storeStatePath = path.join('resources', 'volvo-storage-state');
   
   if (!fs.existsSync(storeStatePath)) {
     fs.mkdirSync(storeStatePath, { recursive: true });
     console.log(`Created directory: ${storeStatePath}`);
   }
   
-  const storagePath = path.join(storeStatePath, 'storage-state.json');
+  const storagePath = path.join(storeStatePath, 'volvo-storage-state.json');
   
   const browser = await chromium.launch();
   const context = await browser.newContext();
